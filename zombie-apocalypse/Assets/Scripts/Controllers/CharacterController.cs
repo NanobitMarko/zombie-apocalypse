@@ -20,7 +20,7 @@ public class CharacterController : ObjectController {
 	}
 
 	private void OnCollisionEnter2D (Collision2D collision) {
-		if (finishedJumpAnimation && collision.gameObject.tag == "Level Tile") {
+		if (rb.velocity.y <= 0 && collision.gameObject.tag == "Level Tile") {
 			animator.SetBool ("Grounded", true);
 			grounded = true;
 			finishedJumpAnimation = false;
