@@ -3,22 +3,30 @@ using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour {
 
+	float halfTileWidth = 0.64f;
+
 	[SerializeField]
 	private List<LevelSegment> segments;
 
 	private LevelSegment currentSegment;
 
+	public LevelSegment generateSegment(int difficulty) {
 
-	public void generateSegment(int difficulty, int humans) {
+		Vector3 mPos = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, 10));
 
-		Vector2 currentSegmentEnd = currentSegment.EndPosition;
+		Vector3 currentSegmentEnd = mPos + new Vector3(halfTileWidth, halfTileWidth, 0);
+		if (currentSegment != null) {
+			currentSegmentEnd = currentSegment.EndPosition;
+		}
 
+		LevelSegment toInstantiate = segments [(int)Random.Range (0, segments.Count)];
+		currentSegment = Instantiate(toInstantiate, new Vector3(0,0,0), Quaternion.identity) as LevelSegment;
 
-		LevelSegment next = segments[(int) Random.Range(0, segments.Count)];
+		// position new segment at the end of the old one
+		Vector3 position =  currentSegmentEnd + (toInstantiate.StartPosition - currentSegment.EndPosition + new Vector3(halfTileWidth, 0, 0));
+		currentSegment.transform.position = position;
+		currentSegment.transform.SetParent (transform);
 
-	
-		Vector2 delta = next.StartPosition - currentSegment.EndPosition;
-
-		next.transform.Translate (delta);
+		return currentSegment;
 	}
 }
