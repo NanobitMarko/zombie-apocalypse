@@ -20,12 +20,16 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 		LevelSegment toInstantiate = segments [(int)Random.Range (0, segments.Count)];
-		currentSegment = Instantiate(toInstantiate, new Vector3(0,0,0), Quaternion.identity) as LevelSegment;
+		LevelSegment instantiated = Instantiate(toInstantiate, new Vector3(0,0,0), Quaternion.identity) as LevelSegment;
 
 		// position new segment at the end of the old one
-		Vector3 position =  currentSegmentEnd + (toInstantiate.StartPosition - currentSegment.EndPosition + new Vector3(halfTileWidth, 0, 0));
-		currentSegment.transform.position = position;
-		currentSegment.transform.SetParent (transform);
+		Vector3 position =  toInstantiate.transform.position - (toInstantiate.StartPosition - currentSegmentEnd + new Vector3(halfTileWidth, 0, 0));
+		position.y = currentSegmentEnd.y;
+		instantiated.transform.position = position;
+		instantiated.transform.SetParent (transform);
+
+
+		currentSegment = instantiated;
 
 		return currentSegment;
 	}

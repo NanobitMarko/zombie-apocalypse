@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
 
 	private List<int> possibleDifficulties = new List<int> (){ 1 };
 	private int numberOfGeneratedSegments;
-	private int xBound = 1;
+	private int xBound = 2;
 	private float xBoundZombie = 10.5f;
 	LevelSegment lastSegment;
 
