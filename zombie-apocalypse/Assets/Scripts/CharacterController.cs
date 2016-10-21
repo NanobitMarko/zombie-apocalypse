@@ -23,7 +23,6 @@ public class CharacterController : MonoBehaviour {
 	}
 
 	public void Jump (PointerEventData eventData) {
-		Debug.Log ("Jumped");
 		rb.AddForce (Vector2.one * 5, ForceMode2D.Impulse);
 	}
 }

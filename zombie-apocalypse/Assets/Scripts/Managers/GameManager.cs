@@ -8,16 +8,25 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public MenuManager MenuManager;
 
-	[SerializeField]
-	public CharacterController zombie;
+	[HideInInspector]
+	public LevelManager LevelManager;
 
 	private void Start () {
 		Initialize ();
 	}
 
 	private void Initialize () {
+		if (Instance == null) {
+			Instance = this;
+		} else {
+			Destroy (this.gameObject);
+		}
+
 		MenuManager = MenuManager.Create ();
-		zombie.Initialize (MenuManager.TouchController);
+		MenuManager.transform.SetParent (transform, false);
+		LevelManager = LevelManager.Create ();
+		LevelManager.transform.SetParent (transform, false);
+		LevelManager.Initialize ();
 	}
 
 	public void StartGame () {

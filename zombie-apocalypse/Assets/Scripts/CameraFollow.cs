@@ -3,20 +3,17 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
 
-	GameObject player;
+	Transform player;
+	bool initialized = false;
 
-
-
-	// Use this for initialization
-	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player");
-
+	public void Initialize (Transform player) {
+		this.player = player;
+		initialized = true;
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3 (player.transform.position.x, transform.position.y, transform.position.z);
+		if (initialized)
+			transform.position = new Vector3 (player.transform.position.x, transform.position.y, transform.position.z);
 	}
-
-
 }
