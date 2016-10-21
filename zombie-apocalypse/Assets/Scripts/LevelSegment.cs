@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class LevelSegment : MonoBehaviour {
 
+	public int Difficulty;
+
 	[SerializeField]
 	private Transform segmentStart;
 

@@ -2,14 +2,13 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class CharacterController : ObjectController {
-
-	public Rigidbody2D rb;
-
-	[SerializeField]
-	public float movespeed;
+public class ZombieController : CharacterController {
 
 	void Start () {
 		rb.velocity = new Vector2 (movespeed, rb.velocity.y);
+	}
+
+	public void Jump (PointerEventData eventData) {
+		rb.AddForce (Vector2.up * 5, ForceMode2D.Impulse);
 	}
 }

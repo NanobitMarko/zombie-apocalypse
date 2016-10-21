@@ -4,7 +4,10 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
 
 	[SerializeField]
-	public CharacterController zombie;
+	private ZombieController zombiePrefab;
+
+	[HideInInspector]
+	public ZombieController Zombie;
 
 	[SerializeField]
 	private LevelGenerator generator;
@@ -13,10 +16,11 @@ public class LevelManager : MonoBehaviour {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
 	}
 
-	public void Initialize () {
-		zombie.Initialize (GameManager.Instance.MenuManager.TouchController);
-		Camera.main.GetComponent<CameraFollow> ().Initialize (zombie.transform);
+	public void CreateZombie () {
+		Zombie = Instantiate (zombiePrefab);
+		Zombie.transform.position = new Vector3 (1, 1, 0);
+		Zombie.transform.SetParent (transform, false);
+		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
+		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
 	}
-
-
 }
