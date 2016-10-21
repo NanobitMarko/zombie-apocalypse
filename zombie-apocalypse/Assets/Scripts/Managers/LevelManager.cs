@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	private LevelGenerator generator;
 
+	private LevelSegment endSegment;
+
 	public static LevelManager Create () {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
 	}
@@ -22,5 +24,12 @@ public class LevelManager : MonoBehaviour {
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
 		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
+	}
+
+
+	void Update () {
+
+		endSegment = generator.generateSegment (1);
+
 	}
 }

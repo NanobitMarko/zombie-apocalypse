@@ -17,11 +17,11 @@ public class LevelSegment : MonoBehaviour {
 	[SerializeField]
 	private List<Transform> obstacleSpawnPoints;
 
-	public Vector2 StartPosition {
+	public Vector3 StartPosition {
 		get { return segmentStart.position; }
 	}
 
-	public Vector2 EndPosition {
+	public Vector3 EndPosition {
 		get { return segmentEnd.position; }
 	}
 }
