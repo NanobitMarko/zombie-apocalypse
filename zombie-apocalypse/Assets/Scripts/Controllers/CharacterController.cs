@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class CharacterController : MonoBehaviour {
+public class CharacterController : ObjectController {
 
 	public Rigidbody2D rb;
 

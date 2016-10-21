@@ -6,6 +6,9 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	public CharacterController zombie;
 
+	[SerializeField]
+	private LevelGenerator generator;
+
 	public static LevelManager Create () {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
 	}
