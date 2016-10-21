@@ -25,8 +25,9 @@ public class GameManager : MonoBehaviour {
 		MenuManager = MenuManager.Create ();
 		MenuManager.transform.SetParent (transform, false);
 		LevelManager = LevelManager.Create ();
-		LevelManager.transform.SetParent (transform, false);
 		LevelManager.Initialize ();
+		LevelManager.transform.SetParent (transform, false);
+		LevelManager.CreateZombie ();
 	}
 
 	public void StartGame () {
