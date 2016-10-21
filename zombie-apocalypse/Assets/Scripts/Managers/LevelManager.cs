@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void CreateZombie () {
 		Zombie = Instantiate (zombiePrefab);
-		Zombie.transform.position = new Vector3 (1, 1, 0);
+		Zombie.transform.position = new Vector3 (1, 1, 10);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
 		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
