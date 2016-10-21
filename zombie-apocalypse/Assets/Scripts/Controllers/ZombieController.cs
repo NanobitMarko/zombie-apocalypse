@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ZombieController : CharacterController {
 
-	void Start () {
+	void Update () {
 		rb.velocity = new Vector2 (movespeed, rb.velocity.y);
 	}
 
