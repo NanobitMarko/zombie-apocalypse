@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class CharacterController : MonoBehaviour {
 
@@ -8,13 +9,21 @@ public class CharacterController : MonoBehaviour {
 	[SerializeField]
 	public float movespeed;
 
-	// Use this for initialization
-	void Start () {
-		rb = GetComponent<Rigidbody2D> ();
+	public void Initialize (LevelTouchController inputController) {
+		inputController.PointerDown += Jump;
 	}
-	
+
+	void Start () {
+		rb.velocity = new Vector2 (movespeed, rb.velocity.y);
+	}
+
 	// Update is called once per frame
 	void Update () {
-		rb.velocity = new Vector2(movespeed, rb.velocity.y);
+		
+	}
+
+	public void Jump (PointerEventData eventData) {
+		Debug.Log ("Jumped");
+		rb.AddForce (Vector2.one * 5, ForceMode2D.Impulse);
 	}
 }
