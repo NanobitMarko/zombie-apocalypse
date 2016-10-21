@@ -12,4 +12,10 @@ public class CharacterController : ObjectController {
 	void Start () {
 		rb.velocity = new Vector2 (movespeed, rb.velocity.y);
 	}
+
+	void OnCollisionEnter2D (Collision2D collision) {
+		if (collision.gameObject.tag == "") {
+			
+		}
+	}
 }

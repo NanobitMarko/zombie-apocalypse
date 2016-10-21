@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	private LevelGenerator generator;
 
-	private List<int> possibleDifficulties = new List<int>(){1};
+	private List<int> possibleDifficulties = new List<int> (){ 1 };
 	private int numberOfGeneratedSegments;
 	private int xBound = 1;
 	private float xBoundZombie = 10.5f;
@@ -25,14 +25,14 @@ public class LevelManager : MonoBehaviour {
 
 	public void CreateZombie () {
 		Zombie = Instantiate (zombiePrefab);
-		Zombie.transform.position = new Vector3 (1, 1, 10);
+		Zombie.transform.position = new Vector3 (1, 1, 0);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
 		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
 	}
 
 	public void Initialize () {
-		GenerateStartingLevel();
+		GenerateStartingLevel ();
 	}
 
 	// Update is called once per frame
@@ -40,34 +40,33 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
 		//chack if gaem is started
 		//if() {generateStartingLevel(); }
-		Debug.Log ("world pos " + transform.TransformPoint (lastSegment.EndPosition).x + " screee width" + Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height +
-			"zombi" + Zombie.transform.position.x);
-		if ( transform.TransformPoint(lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height  <= xBound
-			|| transform.TransformPoint(lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie) {
+//		Debug.Log ("world pos " + transform.TransformPoint (lastSegment.EndPosition).x + " screee width" + Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height +
+//		"zombi" + Zombie.transform.position.x);
+		if (transform.TransformPoint (lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height <= xBound
+		    || transform.TransformPoint (lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie) {
 			
-			GenerateNextLevel();
+			GenerateNextLevel ();
 		}
 	}
 
-	public void Reset()
-	{
+	public void Reset () {
 		numberOfGeneratedSegments = 0;
-		possibleDifficulties.Clear();
+		possibleDifficulties.Clear ();
 	}
 
-	private void GenerateStartingLevel(){
+	private void GenerateStartingLevel () {
 		// lana fake difficulty should be 0
 		lastSegment = generator.generateSegment (1);
 	}
 
-	private void GenerateNextLevel(){
-		System.Random rnd = new System.Random();
-		int difficulty = rnd.Next(possibleDifficulties[0], possibleDifficulties[possibleDifficulties.Count -1] + 1);
-		lastSegment = generator.generateSegment(difficulty);
+	private void GenerateNextLevel () {
+		System.Random rnd = new System.Random ();
+		int difficulty = rnd.Next (possibleDifficulties [0], possibleDifficulties [possibleDifficulties.Count - 1] + 1);
+		lastSegment = generator.generateSegment (difficulty);
 		SetState ();
 	}
 
-	private void SetState(){
+	private void SetState () {
 		numberOfGeneratedSegments++;
 
 		if (numberOfGeneratedSegments % 5 == 0) {
