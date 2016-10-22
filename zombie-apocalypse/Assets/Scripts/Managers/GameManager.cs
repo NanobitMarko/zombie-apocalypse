@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
-	public bool GameStarted = false;
+	public enum GameState {NOTSTARTED, STARTED, PAUSED, ENDED};
+	public GameState CurrentGameState;
+
 
 	private void Start () {
 		Initialize ();
@@ -32,10 +34,30 @@ public class GameManager : MonoBehaviour {
 //		LevelManager.CreateZombie ();
 
 		MenuManager.ShowMenu (MainMenu.Create ());
+		CurrentGameState = GameState.NOTSTARTED;
+	}
+		
+	public void StartGame () {
+		CurrentGameState = GameState.STARTED;
+		LevelManager.CreateZombie ();
 	}
 
-	public void StartGame () {
-		LevelManager.CreateZombie ();
-		GameStarted = true;
+	public void PauseGame () {
+		CurrentGameState = GameState.PAUSED;
+		Time.timeScale = 0;
+	}
+
+	public void ResumeGame () {
+		CurrentGameState = GameState.STARTED;
+		Time.timeScale = 1;
+	}
+
+	public void EndGame () {
+		CurrentGameState = GameState.ENDED;
+		MenuManager.ShowMenu (GameOverMenu.Create ());
+	}
+
+	public GameState GetCurrentGameState () {
+		return this.CurrentGameState;
 	}
 }
