@@ -10,6 +10,8 @@ public class ZombieController : HumanoidController {
 
 	private float AdditionalScore = 0;
 
+	private bool blockAllMovement = false;
+
 	public ZombieState State;
 
 	public void Awake () {
@@ -22,7 +24,8 @@ public class ZombieController : HumanoidController {
 	}
 
 	protected override void Update () {
-		base.Update ();
+		if (!blockAllMovement)
+			base.Update ();
 		UpdateScore ();
 	}
 
@@ -32,7 +35,7 @@ public class ZombieController : HumanoidController {
 	}
 
 	public void Jump (PointerEventData eventData) {
-		if (grounded && !dead) {
+		if (grounded && !dead && !blockAllMovement) {
 			rb.AddForce (Vector2.up * JumpingPower, ForceMode2D.Impulse);
 			animator.SetBool ("Grounded", false);
 			grounded = false;
@@ -91,5 +94,14 @@ public class ZombieController : HumanoidController {
 	private void TickEnergy () {
 		State.TickEnergy ();
 		Invoke ("TickEnergy", State.EnergyDrainPeriod);
+	}
+
+	public void SpawnStarted () {
+		rb.velocity = new Vector2 (0, rb.velocity.y);
+		blockAllMovement = true;
+	}
+
+	public void SpawnEnded () {
+		blockAllMovement = false;
 	}
 }
