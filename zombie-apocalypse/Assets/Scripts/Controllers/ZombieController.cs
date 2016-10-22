@@ -40,7 +40,7 @@ public class ZombieController : HumanoidController {
 			HumanController human = collision.collider.GetComponent<HumanController> ();
 			if (human != null)
 				human.SpecialEffect (this);
-			Destroy (collision.collider.gameObject);
+			return;
 		}
 		foreach (var contact in collision.contacts) {
 			BoxCollider2D collider = GetComponent<BoxCollider2D> ();

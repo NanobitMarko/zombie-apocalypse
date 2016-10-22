@@ -8,7 +8,7 @@ public class GameOverMenu : BaseMenu {
 	}
 
 	public void OnRestartGameClicked () {
-		GameManager.Instance.StartGame ();
+		GameManager.Instance.ShowMainScreen ();
 		ExitMenu ();
 	}
 
