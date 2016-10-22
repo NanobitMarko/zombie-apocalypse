@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour {
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
 		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
+		Zombie.DeathTriggered += OnZombieDied;
 	}
 
 	public void Initialize () {
@@ -47,6 +48,10 @@ public class LevelManager : MonoBehaviour {
 			
 			GenerateNextLevel ();
 		}
+	}
+
+	public void OnZombieDied (HumanoidController zombie) {
+		Debug.Log ("MISSION ACCOMPLISHED.");
 	}
 
 	public void Reset () {

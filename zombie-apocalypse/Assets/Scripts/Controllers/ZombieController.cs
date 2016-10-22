@@ -2,16 +2,12 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class ZombieController : CharacterController {
+public class ZombieController : HumanoidController {
 
 	public int JumpingPower = 11;
 
-	void Update () {
-		rb.velocity = new Vector2 (movespeed, rb.velocity.y);
-	}
-
 	public void Jump (PointerEventData eventData) {
-		if (grounded) {
+		if (grounded && !dead) {
 			rb.AddForce (Vector2.up * JumpingPower, ForceMode2D.Impulse);
 			animator.SetBool ("Grounded", false);
 			grounded = false;
