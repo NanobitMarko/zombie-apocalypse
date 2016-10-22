@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System;
 
@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour {
 	private int xBound = 2;
 	private float xBoundZombie = 30.5f;
 	LevelSegment lastSegment;
+
+	private bool paused = false;
 
 	public static LevelManager Create () {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
@@ -41,6 +43,9 @@ public class LevelManager : MonoBehaviour {
 	//listen to start new button
 	void Update () {
 		
+		if (paused) {
+			return;
+		}
 		//chack if gaem is started
 		//if() {generateStartingLevel(); }
 		if (lastSegment.EndPosition.x -  ScreenUtility.GetScreenSize() <= xBound
@@ -88,5 +93,17 @@ public class LevelManager : MonoBehaviour {
 		{
 			Debug.Log( "possibleDifficulties " + poible );
 		}
+	}
+
+	public bool IsLevelPaused () {
+		return paused;
+	} 
+
+	public void PauseLevel () {
+		paused = true;
+	}
+
+	public void ResumeLevel () {
+		paused = false;
 	}
 }
