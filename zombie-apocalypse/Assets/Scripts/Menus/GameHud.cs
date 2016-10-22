@@ -17,6 +17,7 @@ public class GameHud : BaseMenu {
 	private void Start () {
 		GameManager.Instance.LevelManager.Zombie.State.EnergyChanged += OnZombieEnergyChanged;
 		GameManager.Instance.LevelManager.Zombie.State.ScoreChanged += OnScoreChanged;
+		GameManager.Instance.LevelManager.Zombie.DeathTriggered += OnZombieDied;
 	}
 
 	private void OnZombieEnergyChanged (float current) {
@@ -27,8 +28,12 @@ public class GameHud : BaseMenu {
 		score.text = string.Format ("{0:n0}", current);
 	}
 
+	private void OnZombieDied (HumanoidController controller) {
+		Destroy (gameObject);
+	}
+
 	public void OnPauseClicked () {
-		if (GameManager.Instance.GetCurrentGameState () == GameManager.GameState.STARTED ) {
+		if (GameManager.Instance.GetCurrentGameState () == GameManager.GameState.STARTED) {
 			GameManager.Instance.PauseGame ();
 		}
 	}

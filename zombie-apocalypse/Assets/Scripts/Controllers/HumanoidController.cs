@@ -33,15 +33,11 @@ public class HumanoidController : ObjectController {
 		finishedJumpAnimation = true;
 	}
 
-	protected void Die () {
+	protected virtual void Die () {
 		if (!dead) {
 //			Debug.Log ("dieded");
 			dead = true;
 			animator.SetBool ("Killed", true);
-
-			foreach (var collider in GetComponents<Collider2D>()) {
-				collider.enabled = false;
-			}
 
 			if (DeathTriggered != null)
 				DeathTriggered (this);

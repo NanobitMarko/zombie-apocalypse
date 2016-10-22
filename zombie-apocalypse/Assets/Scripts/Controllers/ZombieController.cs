@@ -6,11 +6,16 @@ public class ZombieController : HumanoidController {
 
 	public int JumpingPower = 11;
 
+	private float StartX = 0;
+
+	private float AdditionalScore = 0;
+
 	public ZombieState State;
 
 	public void Awake () {
 		State = new ZombieState ();
 		Invoke ("TickEnergy", State.EnergyDrainPeriod);
+		StartX = transform.position.x;
 	}
 
 	protected override void Update () {
@@ -19,7 +24,8 @@ public class ZombieController : HumanoidController {
 	}
 
 	private void UpdateScore () {
-		State.Score = transform.position.x;
+		if (!dead)
+			State.Score = transform.position.x - StartX + AdditionalScore;
 	}
 
 	public void Jump (PointerEventData eventData) {
@@ -31,6 +37,9 @@ public class ZombieController : HumanoidController {
 	}
 
 	private void OnCollisionEnter2D (Collision2D collision) {
+		if (dead)
+			return;
+
 		if (collision.collider.transform.position.y < transform.position.y && Mathf.Abs (collision.collider.transform.position.x - transform.position.x) < 1.5f /* khm khm*/ && collision.gameObject.tag == "Level Tile") {
 			animator.SetBool ("Grounded", true);
 			grounded = true;
@@ -38,8 +47,15 @@ public class ZombieController : HumanoidController {
 		}
 		if (collision.collider.gameObject.tag == "Human") {
 			HumanController human = collision.collider.GetComponent<HumanController> ();
-			if (human != null)
+			if (human != null) {
 				human.SpecialEffect (this);
+				AdditionalScore += human.ScoreGiven;
+			}
+			return;
+		}
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Obstacle")) {
+			Die ();
+			Destroy (collision.collider.gameObject);
 			return;
 		}
 		foreach (var contact in collision.contacts) {
@@ -57,6 +73,13 @@ public class ZombieController : HumanoidController {
 	private void OnTriggerEnter2D (Collider2D collider) {
 		//		Debug.Log ("Triggered die");
 		//base.Die ();
+	}
+
+	protected override void Die () {
+		if (!dead) {
+			CancelInvoke ("TickEnergy");
+		}
+		base.Die ();
 	}
 
 	private void TickEnergy () {

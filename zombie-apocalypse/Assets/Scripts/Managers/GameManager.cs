@@ -11,7 +11,14 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
-	public enum GameState {NOTSTARTED, STARTED, PAUSED, ENDED};
+	public enum GameState {
+NOTSTARTED,
+		STARTED,
+		PAUSED,
+		ENDED}
+
+	;
+
 	public GameState CurrentGameState;
 
 
@@ -40,10 +47,11 @@ public class GameManager : MonoBehaviour {
 	public void ShowMainScreen () {
 		MenuManager.ShowMenu (MainMenu.Create ());
 	}
-		
+
 	public void StartGame () {
 		CurrentGameState = GameState.STARTED;
 		LevelManager.CreateZombie ();
+		GameManager.Instance.MenuManager.ShowMenu (GameHud.Create ());
 	}
 
 	public void PauseGame () {
