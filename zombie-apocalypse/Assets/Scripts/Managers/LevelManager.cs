@@ -26,7 +26,8 @@ public class LevelManager : MonoBehaviour {
 
 	public void CreateZombie () {
 		Zombie = Instantiate (zombiePrefab);
-		Zombie.transform.position = new Vector3 (1, 1, 0);
+		double spawnPositionX = (lastSegment.EndPosition.x - lastSegment.StartPosition.x)*0.5+lastSegment.StartPosition.x;
+		Zombie.transform.position = new Vector3 ((float)spawnPositionX, 1, 0);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
 		Camera.main.GetComponent<CameraController> ().Initialize (Zombie.transform);
@@ -57,6 +58,7 @@ public class LevelManager : MonoBehaviour {
 	public void Reset () {
 		numberOfGeneratedSegments = 0;
 		possibleDifficulties.Clear ();
+		GenerateStartingLevel ();
 	}
 
 	private void GenerateStartingLevel () {
