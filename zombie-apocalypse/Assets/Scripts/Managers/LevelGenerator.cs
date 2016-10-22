@@ -82,6 +82,7 @@ public class LevelGenerator : MonoBehaviour {
 		
 			ObstacleController obstacleToInstantiate = obstacles [Random.Range (0, obstacles.Length)];
 			ObstacleController obstacle = Instantiate (obstacleToInstantiate) as ObstacleController;
+			obstacle.transform.localScale = obstacle.transform.localScale * 0.34f;
 			obstacle.transform.SetParent (GameManager.Instance.LevelManager.transform);
 			obstacle.transform.position = spawPoint.position + new Vector3 (0, obstacle.GetComponentInChildren<SpriteRenderer> ().bounds.size.y / 2);
 		}
