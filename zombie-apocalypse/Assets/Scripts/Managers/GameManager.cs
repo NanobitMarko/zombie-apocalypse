@@ -11,8 +11,11 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
+	[HideInInspector]
+	public SoundManager SoundManager;
+
 	public enum GameState {
-NOTSTARTED,
+		NOTSTARTED,
 		STARTED,
 		PAUSED,
 		ENDED}
@@ -38,6 +41,8 @@ NOTSTARTED,
 		LevelManager = LevelManager.Create ();
 		LevelManager.Initialize ();
 		LevelManager.transform.SetParent (transform, false);
+		SoundManager = SoundManager.Create ();
+		SoundManager.transform.SetParent (transform, false);
 //		LevelManager.CreateZombie ();
 
 		CurrentGameState = GameState.NOTSTARTED;
@@ -52,6 +57,9 @@ NOTSTARTED,
 		CurrentGameState = GameState.STARTED;
 		LevelManager.CreateZombie ();
 		GameManager.Instance.MenuManager.ShowMenu (GameHud.Create ());
+		SoundManager.PlaySoundEffect (SoundManager.Thunder);
+
+		SoundManager.StartBackgroundMusicAtClipLength (6.0f);
 	}
 
 	public void PauseGame () {
@@ -67,6 +75,7 @@ NOTSTARTED,
 
 	public void EndGame () {
 		CurrentGameState = GameState.ENDED;
+		LevelManager.Reset ();
 		MenuManager.ShowMenu (GameOverMenu.Create ());
 	}
 

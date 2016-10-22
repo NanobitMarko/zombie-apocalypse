@@ -15,6 +15,9 @@ public class ZombieController : HumanoidController {
 	public void Awake () {
 		State = new ZombieState ();
 		Invoke ("TickEnergy", State.EnergyDrainPeriod);
+	}
+
+	private void Start () {
 		StartX = transform.position.x;
 	}
 
@@ -50,6 +53,7 @@ public class ZombieController : HumanoidController {
 			if (human != null) {
 				human.SpecialEffect (this);
 				AdditionalScore += human.ScoreGiven;
+				GameManager.Instance.SoundManager.PlaySoundEffect (SoundManager.ZombieKill);
 			}
 			return;
 		}
@@ -79,6 +83,8 @@ public class ZombieController : HumanoidController {
 		if (!dead) {
 			CancelInvoke ("TickEnergy");
 		}
+
+		GameManager.Instance.SoundManager.PlaySoundEffect (SoundManager.ZombieDeath);
 		base.Die ();
 	}
 
