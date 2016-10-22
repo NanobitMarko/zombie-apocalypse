@@ -9,6 +9,7 @@ public class MainMenu : BaseMenu {
 
 	public void OnStartGameClicked () {
 		GameManager.Instance.StartGame ();
+		GameManager.Instance.MenuManager.ShowMenu (GameHud.Create ());
 		ExitMenu ();
 	}
 
