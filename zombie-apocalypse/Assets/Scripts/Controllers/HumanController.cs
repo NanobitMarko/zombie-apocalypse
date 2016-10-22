@@ -16,8 +16,15 @@ public class HumanController : HumanoidController {
 		//		Debug.Log ("Triggered die");
 		//
 		zombie.State.Energy += 0.2f * ZombieState.MaxEnergy;
+
+		var particle = Instantiate (Resources.Load<ParticleSystem> ("Particles/BloodSplatter"));
+		particle.transform.position = transform.position;
 		Destroy (this.gameObject);
-		Debug.Log("NOM NOM");
+	}
+
+	private void killMe () {
+		//		Debug.Log ("Triggered die");
+		Destroy (this.gameObject);
 	}
 
 	private void OnTriggerEnter2D (Collider2D collider) {
