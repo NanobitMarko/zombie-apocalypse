@@ -42,14 +42,19 @@ public class GameManager : MonoBehaviour {
 		LevelManager.CreateZombie ();
 	}
 
-	private void PauseGame () {
+	public void PauseGame () {
 		CurrentGameState = GameState.PAUSED;
 		Time.timeScale = 0;
 	}
 
-	private void ResumeGame () {
+	public void ResumeGame () {
 		CurrentGameState = GameState.STARTED;
 		Time.timeScale = 1;
+	}
+
+	public void EndGame () {
+		CurrentGameState = GameState.ENDED;
+		MenuManager.ShowMenu (GameOverMenu.Create ());
 	}
 
 	public GameState GetCurrentGameState () {

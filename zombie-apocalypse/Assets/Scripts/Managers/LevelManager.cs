@@ -51,6 +51,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void OnZombieDied (HumanoidController zombie) {
 		Debug.Log ("MISSION ACCOMPLISHED.");
+		GameManager.Instance.EndGame ();
 	}
 
 	public void Reset () {
