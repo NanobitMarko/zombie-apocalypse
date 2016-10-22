@@ -15,6 +15,8 @@ public class HumanController : HumanoidController {
 	public void SpecialEffect (ZombieController zombie) {
 		//		Debug.Log ("Triggered die");
 		//
+		zombie.State.Energy += 0.2f * ZombieState.MaxEnergy;
+		Destroy (this.gameObject);
 		Debug.Log("NOM NOM");
 	}
 
