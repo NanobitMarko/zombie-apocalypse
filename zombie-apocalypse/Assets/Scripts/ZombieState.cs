@@ -5,22 +5,22 @@ public class ZombieState {
 
 	public int EnergyDrainPeriod = 1;
 
-	public static int MaxEnergy = 100;
+	public static float MaxEnergy = 100.0f;
 
-	private int energy = 100;
+	private float energy = 100.0f;
 
-	public int Energy {
+	public float Energy {
 		get { return energy; }
 		set
 		{
-			energy = value; 
+			energy = Mathf.Clamp (value, 0, MaxEnergy);
 			if (EnergyChanged != null) {
 				EnergyChanged (energy);
 			}
 		}
 	}
 
-	public delegate void EnergyChangedHandler (int currentValue);
+	public delegate void EnergyChangedHandler (float currentValue);
 
 	public event EnergyChangedHandler EnergyChanged;
 

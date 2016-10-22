@@ -15,8 +15,8 @@ public class GameHud : BaseMenu {
 		GameManager.Instance.LevelManager.Zombie.State.EnergyChanged += OnZombieEnergyChanged;
 	}
 
-	private void OnZombieEnergyChanged (int current) {
-		energy.fillAmount = (float)current / (float)ZombieState.MaxEnergy;
+	private void OnZombieEnergyChanged (float current) {
+		energy.fillAmount = current / ZombieState.MaxEnergy;
 	}
 
 	public void OnPauseClicked () {
