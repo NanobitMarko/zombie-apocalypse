@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameHud : BaseMenu {
 
 	[SerializeField]
-	private Image energy = Resources.Load<Image> ("Art/ui/ui_HUD02");
+	private Image energy;
 
 	[SerializeField]
 	private Text score;
