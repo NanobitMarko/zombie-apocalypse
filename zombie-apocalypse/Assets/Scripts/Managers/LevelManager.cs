@@ -13,10 +13,11 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	private LevelGenerator generator;
 
+	private int maxDifficulty = 5;
 	private List<int> possibleDifficulties = new List<int> (){ 1 };
 	private int numberOfGeneratedSegments;
 	private int xBound = 2;
-	private float xBoundZombie = 10.5f;
+	private float xBoundZombie = 30.5f;
 	LevelSegment lastSegment;
 
 	public static LevelManager Create () {
@@ -41,10 +42,8 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
 		//chack if gaem is started
 		//if() {generateStartingLevel(); }
-//		Debug.Log ("world pos " + transform.TransformPoint (lastSegment.EndPosition).x + " screee width" + Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height +
-//		"zombi" + Zombie.transform.position.x);
-		if (transform.TransformPoint (lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height <= xBound
-		    || transform.TransformPoint (lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie) {
+		if (lastSegment.EndPosition.x -  ScreenUtility.GetScreenSize() <= xBound
+			|| lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {
 			
 			GenerateNextLevel ();
 		}
@@ -68,6 +67,7 @@ public class LevelManager : MonoBehaviour {
 		System.Random rnd = new System.Random ();
 		int difficulty = rnd.Next (possibleDifficulties [0], possibleDifficulties [possibleDifficulties.Count - 1] + 1);
 		lastSegment = generator.generateSegment (difficulty);
+		Debug.Log ("difficulty " + difficulty);
 		SetState ();
 	}
 
@@ -79,8 +79,14 @@ public class LevelManager : MonoBehaviour {
 			if (possibleDifficulties.Count >= 3) {
 				possibleDifficulties.RemoveAt (0);
 			} else {
-				possibleDifficulties.Add (largestDifficulty + 1);
+				possibleDifficulties.Add (Math.Min(largestDifficulty + 1 , maxDifficulty));
 			}
+		}
+		Debug.Log ( "generated segments " + numberOfGeneratedSegments);
+
+		foreach( int poible in possibleDifficulties )
+		{
+			Debug.Log( "possibleDifficulties " + poible );
 		}
 	}
 }

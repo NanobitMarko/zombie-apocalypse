@@ -24,4 +24,10 @@ public class LevelSegment : MonoBehaviour {
 	public Vector3 EndPosition {
 		get { return segmentEnd.position; }
 	}
+
+	void Update () {
+		if (ScreenUtility.IsLeftOfScreen (EndPosition)) {
+			Destroy (gameObject);
+		}
+	}
 }
