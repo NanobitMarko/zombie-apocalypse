@@ -67,7 +67,6 @@ public class LevelGenerator : MonoBehaviour {
 	}
 
 	void spawnObstacles(LevelSegment segment) {
-	}
 
 	}
 }
