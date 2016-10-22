@@ -27,6 +27,9 @@ public class ZombieController : HumanoidController {
 		if (!blockAllMovement)
 			base.Update ();
 		UpdateScore ();
+
+		if (State.Energy <= 0)
+			base.Die ();
 	}
 
 	private void UpdateScore () {
@@ -85,9 +88,9 @@ public class ZombieController : HumanoidController {
 	protected override void Die () {
 		if (!dead) {
 			CancelInvoke ("TickEnergy");
-			GameManager.Instance.SoundManager.PlaySoundEffect (SoundManager.ZombieDeath);
 		}
 
+		GameManager.Instance.SoundManager.PlaySoundEffect (SoundManager.ZombieDeath);
 		base.Die ();
 	}
 
