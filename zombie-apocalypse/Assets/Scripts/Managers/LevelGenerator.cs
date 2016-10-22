@@ -59,6 +59,8 @@ public class LevelGenerator : MonoBehaviour {
 	void spawnHumans(LevelSegment segment) {
 
 		foreach(var spawPoint in segment.humanSpawnPoints) {
+			if (spawPoint == null)
+				continue;
 			HumanController humanToInstantiate = humans [Random.Range (0, humans.Length)];
 			HumanController human = Instantiate (humanToInstantiate) as HumanController;
 			human.transform.SetParent (GameManager.Instance.LevelManager.transform);
