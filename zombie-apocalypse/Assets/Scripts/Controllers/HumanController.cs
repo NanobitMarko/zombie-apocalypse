@@ -18,7 +18,11 @@ public class HumanController : HumanoidController {
 
 		var particle = Instantiate (Resources.Load<ParticleSystem> ("Particles/BloodSplatter"));
 		particle.transform.position = transform.position;
+		var dust = Instantiate (Resources.Load<Transform> ("Prefabs/DustSprite"));
+		dust.transform.position = transform.position;
 		Destroy (this.gameObject);
+		Destroy (dust.gameObject, dust.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length); 
+		Destroy (particle.gameObject, particle.GetComponent<ParticleSystem>().duration); 
 	}
 
 	private void killMe () {
