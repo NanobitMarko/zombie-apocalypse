@@ -46,11 +46,11 @@ public class LevelManager : MonoBehaviour {
 		if (paused) {
 			return;
 		}
-		//chack if gaem is started
-		//if() {generateStartingLevel(); }
-		if (lastSegment.EndPosition.x -  ScreenUtility.GetScreenSize() <= xBound
-			|| lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
-			GenerateNextLevel ();
+		if (GameManager.Instance.GameStarted == true) {
+			if (lastSegment.EndPosition.x - ScreenUtility.GetScreenSize () <= xBound
+			   || lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
+				GenerateNextLevel ();
+			}
 		}
 	}
 
