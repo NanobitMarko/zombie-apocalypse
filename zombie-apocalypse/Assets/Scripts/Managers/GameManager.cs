@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -38,4 +38,17 @@ public class GameManager : MonoBehaviour {
 		LevelManager.CreateZombie ();
 		GameStarted = true;
 	}
+
+	private bool isPaused() {
+		return LevelManager.IsLevelPaused ();
+	}
+
+	private void Pause () {
+		LevelManager.PauseLevel ();
+	}
+
+	private void Resume () {
+		LevelManager.ResumeLevel ();
+	}
+
 }
