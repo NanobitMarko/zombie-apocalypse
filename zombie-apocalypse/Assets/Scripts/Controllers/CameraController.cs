@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	[SerializeField]
-	float characterOffsetFromLeft;
+	float cameraOffsetFromCenter;
 
 	private Transform player;
 	private bool initialized = false;
@@ -17,9 +17,8 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		float unitWidth = Screen.width * Camera.main.orthographicSize * 2.0f / Screen.height;
-		float offset = unitWidth * characterOffsetFromLeft;
-		Debug.Log (offset);
+		float offset = unitWidth * cameraOffsetFromCenter;
 		if (initialized)
-			transform.position = new Vector3 (player.transform.position.x - unitWidth*characterOffsetFromLeft, transform.position.y, transform.position.z);
+			transform.position = new Vector3 (player.transform.position.x - unitWidth*cameraOffsetFromCenter, transform.position.y, transform.position.z);
 	}
 }

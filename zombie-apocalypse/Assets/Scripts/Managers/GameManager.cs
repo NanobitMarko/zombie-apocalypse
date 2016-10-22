@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 
+		// lock to landscape
+		Screen.orientation = ScreenOrientation.LandscapeLeft;
+
 		MenuManager = MenuManager.Create ();
 		MenuManager.transform.SetParent (transform, false);
 		LevelManager = LevelManager.Create ();
