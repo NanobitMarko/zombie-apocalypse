@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour {
 
 	private void GenerateStartingLevel () {
 		// lana fake difficulty should be 0
-		lastSegment = generator.generateSegment (1);
+		lastSegment = generator.generateSegment (0);
 	}
 
 	private void GenerateNextLevel () {
