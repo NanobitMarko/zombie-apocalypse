@@ -13,4 +13,33 @@ public class ZombieController : HumanoidController {
 			grounded = false;
 		}
 	}
+
+	private void OnCollisionEnter2D (Collision2D collision) {
+		if (collision.collider.transform.position.y < transform.position.y && Mathf.Abs (collision.collider.transform.position.x - transform.position.x) < 1.5f /* khm khm*/ && collision.gameObject.tag == "Level Tile") {
+			animator.SetBool ("Grounded", true);
+			grounded = true;
+			finishedJumpAnimation = false;
+		}
+		if (collision.collider.gameObject.tag == "Human") {
+			HumanController human = collision.collider.GetComponent<HumanController>();
+			if (human != null)
+				human.SpecialEffect(this);
+			Destroy (collision.collider.gameObject);
+		}
+		foreach (var contact in collision.contacts) {
+			BoxCollider2D collider = GetComponent<BoxCollider2D> ();
+			if (collider.bounds.Contains (contact.point)) {
+				//				Debug.Log ("collided die"); else {
+					base.Die ();
+					break;
+				}
+
+				return;
+		}
+	}
+	/* unused, maybe will be used if the box collider turns into a trigger collider*/
+	private void OnTriggerEnter2D (Collider2D collider) {
+		//		Debug.Log ("Triggered die");
+		//base.Die ();
+	}
 }
