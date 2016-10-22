@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ZombieState {
 
-	public int EnergyDrainPeriod = 1;
+	public float EnergyDrainPeriod = 0.7f;
 
 	public static float MaxEnergy = 100.0f;
 
