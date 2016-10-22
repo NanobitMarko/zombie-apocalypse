@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 		SoundManager = SoundManager.Create ();
 		SoundManager.transform.SetParent (transform, false);
 		LeaderboardManager = LeaderboardManager.Create ();
-//		LevelManager.CreateZombie ();
+		LeaderboardManager.transform.SetParent (transform, false);
 
 		CurrentGameState = GameState.NOTSTARTED;
 		ShowMainScreen ();
