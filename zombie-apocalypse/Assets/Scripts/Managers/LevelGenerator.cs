@@ -10,12 +10,14 @@ public class LevelGenerator : MonoBehaviour {
 
 	private Dictionary<int, List<LevelSegment>> segmentsForDifficulty;
 	private HumanController[] humans;
+	private ObstacleController[] obstacles;
 
 
 	private LevelSegment currentSegment;
 
 	public void Initialize() {
 		humans = Resources.LoadAll<HumanController> ("Prefabs/Humans");
+		obstacles = Resources.LoadAll<ObstacleController> ("Prefabs/Obstacles");
 
 		segmentsForDifficulty = new Dictionary<int, List<LevelSegment>> ();
 		foreach (var seg in segments) {
@@ -52,12 +54,14 @@ public class LevelGenerator : MonoBehaviour {
 		currentSegment = instantiated;
 
 		spawnHumans (currentSegment);
-
+		spawnObstacles (currentSegment);
 		return currentSegment;
 	}
 
 	void spawnHumans(LevelSegment segment) {
-
+		if (humans == null || humans.Length == 0)
+			return;
+		
 		foreach(var spawPoint in segment.humanSpawnPoints) {
 			if (spawPoint == null)
 				continue;
@@ -69,6 +73,17 @@ public class LevelGenerator : MonoBehaviour {
 	}
 
 	void spawnObstacles(LevelSegment segment) {
-
+		if (obstacles == null || obstacles.Length == 0)
+			return;
+		
+		foreach (var spawPoint in segment.obstacleSpawnPoints) {
+			if (spawPoint == null)
+				continue;
+		
+			ObstacleController obstacleToInstantiate = obstacles [Random.Range (0, humans.Length)];
+			ObstacleController obstacle = Instantiate (obstacleToInstantiate) as ObstacleController;
+			obstacle.transform.SetParent (GameManager.Instance.LevelManager.transform);
+			obstacle.transform.position = spawPoint.position + new Vector3 (0, obstacle.GetComponentInChildren<SpriteRenderer> ().bounds.size.y / 2);
+		}
 	}
 }

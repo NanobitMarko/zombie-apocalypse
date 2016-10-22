@@ -57,6 +57,7 @@ public class LevelManager : MonoBehaviour {
 	public void Reset () {
 		numberOfGeneratedSegments = 0;
 		possibleDifficulties.Clear ();
+		GenerateStartingLevel ();
 	}
 
 	private void GenerateStartingLevel () {
