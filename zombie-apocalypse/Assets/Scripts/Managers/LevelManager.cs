@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour {
 		if (Zombie != null)
 			Destroy (Zombie.gameObject);
 		Zombie = Instantiate (zombiePrefab);
-		double spawnPositionX = (lastSegment.EndPosition.x - lastSegment.StartPosition.x) * 0.5 + lastSegment.StartPosition.x;
+		double spawnPositionX = (lastSegment.EndPosition.x - lastSegment.StartPosition.x)*0.5+lastSegment.StartPosition.x;
 		Zombie.transform.position = new Vector3 ((float)spawnPositionX, 1, 0);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
@@ -44,9 +44,9 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	//listen to start new button
 	void Update () {
-		if (GameManager.Instance.GetCurrentGameState () == GameManager.GameState.STARTED) {
+		if (GameManager.Instance.GetCurrentGameState() == GameManager.GameState.STARTED) {
 			if (lastSegment.EndPosition.x - ScreenUtility.GetScreenSize () <= xBound
-			    || lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
+			   || lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
 				GenerateNextLevel ();
 			}
 		}
@@ -84,7 +84,7 @@ public class LevelManager : MonoBehaviour {
 			if (possibleDifficulties.Count >= 3) {
 				possibleDifficulties.RemoveAt (0);
 			} else {
-				possibleDifficulties.Add (Math.Min (largestDifficulty + 1, maxDifficulty));
+				possibleDifficulties.Add (Math.Min(largestDifficulty + 1 , maxDifficulty));
 			}
 			Zombie.movespeed += Zombie.movespeed * 0.2f;
 		}
