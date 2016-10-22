@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public SoundManager SoundManager;
 
+	[HideInInspector]
+	public LeaderboardManager LeaderboardManager;
+
 	public enum GameState {
 		NOTSTARTED,
 		STARTED,
@@ -23,7 +26,6 @@ public class GameManager : MonoBehaviour {
 	;
 
 	public GameState CurrentGameState;
-
 
 	private void Start () {
 		Initialize ();
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour {
 		LevelManager.transform.SetParent (transform, false);
 		SoundManager = SoundManager.Create ();
 		SoundManager.transform.SetParent (transform, false);
+		LeaderboardManager = LeaderboardManager.Create ();
 //		LevelManager.CreateZombie ();
 
 		CurrentGameState = GameState.NOTSTARTED;
