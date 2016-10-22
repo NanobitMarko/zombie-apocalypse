@@ -4,7 +4,7 @@ using System.Collections;
 public class HumanController : HumanoidController {
 
 	private void OnCollisionEnter2D (Collision2D collision) {
-		if (collision.collider.transform.position.y < transform.position.y && Mathf.Abs (collision.collider.transform.position.x - transform.position.x) < 1.5f /* khm khm*/ && collision.gameObject.tag == "Level Tile") {
+		if (collision.gameObject.tag == "Level Tile") {
 			animator.SetBool ("Grounded", true);
 			grounded = true;
 		}else {
