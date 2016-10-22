@@ -33,8 +33,12 @@ public class GameManager : MonoBehaviour {
 		LevelManager.transform.SetParent (transform, false);
 //		LevelManager.CreateZombie ();
 
-		MenuManager.ShowMenu (MainMenu.Create ());
 		CurrentGameState = GameState.NOTSTARTED;
+		ShowMainScreen ();
+	}
+
+	public void ShowMainScreen () {
+		MenuManager.ShowMenu (MainMenu.Create ());
 	}
 		
 	public void StartGame () {
