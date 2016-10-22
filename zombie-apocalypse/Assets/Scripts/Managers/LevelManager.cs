@@ -29,11 +29,12 @@ public class LevelManager : MonoBehaviour {
 		Zombie.transform.position = new Vector3 (1, 1, 0);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
-		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
+		Camera.main.GetComponent<CameraController> ().Initialize (Zombie.transform);
 		Zombie.DeathTriggered += OnZombieDied;
 	}
 
 	public void Initialize () {
+		generator.Initialize ();
 		GenerateStartingLevel ();
 	}
 
