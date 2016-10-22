@@ -84,6 +84,7 @@ public class LevelManager : MonoBehaviour {
 			} else {
 				possibleDifficulties.Add (Math.Min(largestDifficulty + 1 , maxDifficulty));
 			}
+			Zombie.movespeed += Zombie.movespeed * 0.2f;
 		}
 		Debug.Log ( "generated segments " + numberOfGeneratedSegments);
 
