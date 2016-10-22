@@ -27,6 +27,9 @@ public class ZombieController : HumanoidController {
 		if (!blockAllMovement)
 			base.Update ();
 		UpdateScore ();
+
+		if (State.Energy <= 0)
+			base.Die ();
 	}
 
 	private void UpdateScore () {
