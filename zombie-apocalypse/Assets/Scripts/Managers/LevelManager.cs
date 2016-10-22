@@ -20,8 +20,6 @@ public class LevelManager : MonoBehaviour {
 	private float xBoundZombie = 30.5f;
 	LevelSegment lastSegment;
 
-	private bool paused = false;
-
 	public static LevelManager Create () {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
 	}
@@ -89,17 +87,5 @@ public class LevelManager : MonoBehaviour {
 		{
 			Debug.Log( "possibleDifficulties " + poible );
 		}
-	}
-
-	public bool IsLevelPaused () {
-		return paused;
-	} 
-
-	public void PauseLevel () {
-		paused = true;
-	}
-
-	public void ResumeLevel () {
-		paused = false;
 	}
 }
