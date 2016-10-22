@@ -8,11 +8,11 @@ public class SettingsMenu : BaseMenu {
 	}
 
 	public void OnMusicClicked () {
-		GameManager.Instance.SoundManager.SetBackgroundMusicActive ();
+		GameManager.Instance.SoundManager.SetBackgroundMusicActive (true);
 	}
 
 	public void OnSoundsClicked () {
-		GameManager.Instance.SoundManager.SetSoundEffectsActive ();
+		GameManager.Instance.SoundManager.SetSoundEffectsActive (true);
 	}
 
 	public void OnExitClicked () {
