@@ -13,6 +13,15 @@ public class ZombieController : HumanoidController {
 		Invoke ("TickEnergy", State.EnergyDrainPeriod);
 	}
 
+	protected override void Update () {
+		base.Update ();
+		UpdateScore ();
+	}
+
+	private void UpdateScore () {
+		State.Score = transform.position.x;
+	}
+
 	public void Jump (PointerEventData eventData) {
 		if (grounded && !dead) {
 			rb.AddForce (Vector2.up * JumpingPower, ForceMode2D.Impulse);
@@ -28,20 +37,20 @@ public class ZombieController : HumanoidController {
 			finishedJumpAnimation = false;
 		}
 		if (collision.collider.gameObject.tag == "Human") {
-			HumanController human = collision.collider.GetComponent<HumanController>();
+			HumanController human = collision.collider.GetComponent<HumanController> ();
 			if (human != null)
-				human.SpecialEffect(this);
-			Destroy (collision.collider.gameObject);
+				human.SpecialEffect (this);
+			return;
 		}
 		foreach (var contact in collision.contacts) {
 			BoxCollider2D collider = GetComponent<BoxCollider2D> ();
 			if (collider.bounds.Contains (contact.point)) {
 				//				Debug.Log ("collided die"); else {
-					base.Die ();
-					break;
-				}
+				base.Die ();
+				break;
+			}
 
-				return;
+			return;
 		}
 	}
 	/* unused, maybe will be used if the box collider turns into a trigger collider*/
@@ -49,7 +58,7 @@ public class ZombieController : HumanoidController {
 		//		Debug.Log ("Triggered die");
 		//base.Die ();
 	}
-	
+
 	private void TickEnergy () {
 		State.TickEnergy ();
 		Invoke ("TickEnergy", State.EnergyDrainPeriod);
