@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void CreateZombie () {
+		if (Zombie != null)
+			Destroy (Zombie.gameObject);
 		Zombie = Instantiate (zombiePrefab);
 		double spawnPositionX = (lastSegment.EndPosition.x - lastSegment.StartPosition.x) * 0.5 + lastSegment.StartPosition.x;
 		Zombie.transform.position = new Vector3 ((float)spawnPositionX, 1, 0);
@@ -56,7 +58,6 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void Reset () {
-		Destroy (Zombie.gameObject);
 		numberOfGeneratedSegments = 0;
 		possibleDifficulties.Clear ();
 		possibleDifficulties = new List<int> (){ 1 };
