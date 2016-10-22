@@ -39,12 +39,13 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	//listen to start new button
 	void Update () {
+		
 		//chack if gaem is started
 		//if() {generateStartingLevel(); }
 //		Debug.Log ("world pos " + transform.TransformPoint (lastSegment.EndPosition).x + " screee width" + Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height +
 //		"zombi" + Zombie.transform.position.x);
-		if (transform.TransformPoint (lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height <= xBound
-		    || transform.TransformPoint (lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie) {
+		if (GameManager.Instance.GameStarted && (transform.TransformPoint (lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height <= xBound
+		    || transform.TransformPoint (lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie)) {
 			
 			GenerateNextLevel ();
 		}
