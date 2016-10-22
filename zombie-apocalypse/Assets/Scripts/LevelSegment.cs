@@ -12,10 +12,10 @@ public class LevelSegment : MonoBehaviour {
 	private Transform segmentEnd;
 
 	[SerializeField]
-	private List<Transform> humanSpawnPoints;
+	public List<Transform> humanSpawnPoints;
 
 	[SerializeField]
-	private List<Transform> obstacleSpawnPoints;
+	public List<Transform> obstacleSpawnPoints;
 
 	public Vector3 StartPosition {
 		get { return segmentStart.position; }
@@ -23,5 +23,11 @@ public class LevelSegment : MonoBehaviour {
 
 	public Vector3 EndPosition {
 		get { return segmentEnd.position; }
+	}
+
+	void Update () {
+		if (ScreenUtility.IsLeftOfScreen (EndPosition)) {
+			Destroy (gameObject);
+		}
 	}
 }

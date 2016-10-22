@@ -13,13 +13,12 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	private LevelGenerator generator;
 
+	private int maxDifficulty = 5;
 	private List<int> possibleDifficulties = new List<int> (){ 1 };
 	private int numberOfGeneratedSegments;
 	private int xBound = 2;
-	private float xBoundZombie = 10.5f;
+	private float xBoundZombie = 30.5f;
 	LevelSegment lastSegment;
-
-	private bool paused = false;
 
 	public static LevelManager Create () {
 		return Instantiate (Resources.Load<LevelManager> ("Prefabs/Level Manager"));
@@ -30,29 +29,23 @@ public class LevelManager : MonoBehaviour {
 		Zombie.transform.position = new Vector3 (1, 1, 0);
 		Zombie.transform.SetParent (transform, false);
 		GameManager.Instance.MenuManager.TouchController.PointerDown += Zombie.Jump;
-		Camera.main.GetComponent<CameraFollow> ().Initialize (Zombie.transform);
+		Camera.main.GetComponent<CameraController> ().Initialize (Zombie.transform);
 		Zombie.DeathTriggered += OnZombieDied;
 	}
 
 	public void Initialize () {
+		generator.Initialize ();
 		GenerateStartingLevel ();
 	}
 
 	// Update is called once per frame
 	//listen to start new button
 	void Update () {
-		
-		if (paused) {
-			return;
-		}
-		//chack if gaem is started
-		//if() {generateStartingLevel(); }
-//		Debug.Log ("world pos " + transform.TransformPoint (lastSegment.EndPosition).x + " screee width" + Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height +
-//		"zombi" + Zombie.transform.position.x);
-		if (GameManager.Instance.GameStarted && (transform.TransformPoint (lastSegment.EndPosition).x - Camera.main.orthographicSize * 2.0 * Screen.width / Screen.height <= xBound
-		    || transform.TransformPoint (lastSegment.EndPosition).x - Zombie.transform.position.x <= xBoundZombie)) {
-			
-			GenerateNextLevel ();
+		if (GameManager.Instance.GetCurrentGameState() == GameManager.GameState.STARTED) {
+			if (lastSegment.EndPosition.x - ScreenUtility.GetScreenSize () <= xBound
+			   || lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
+				GenerateNextLevel ();
+			}
 		}
 	}
 
@@ -74,6 +67,7 @@ public class LevelManager : MonoBehaviour {
 		System.Random rnd = new System.Random ();
 		int difficulty = rnd.Next (possibleDifficulties [0], possibleDifficulties [possibleDifficulties.Count - 1] + 1);
 		lastSegment = generator.generateSegment (difficulty);
+		Debug.Log ("difficulty " + difficulty);
 		SetState ();
 	}
 
@@ -85,20 +79,14 @@ public class LevelManager : MonoBehaviour {
 			if (possibleDifficulties.Count >= 3) {
 				possibleDifficulties.RemoveAt (0);
 			} else {
-				possibleDifficulties.Add (largestDifficulty + 1);
+				possibleDifficulties.Add (Math.Min(largestDifficulty + 1 , maxDifficulty));
 			}
 		}
-	}
+		Debug.Log ( "generated segments " + numberOfGeneratedSegments);
 
-	public bool IsLevelPaused () {
-		return paused;
-	} 
-
-	public void PauseLevel () {
-		paused = true;
-	}
-
-	public void ResumeLevel () {
-		paused = false;
+		foreach( int poible in possibleDifficulties )
+		{
+			Debug.Log( "possibleDifficulties " + poible );
+		}
 	}
 }
