@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
+	public bool GameStarted = false;
+
 	private void Start () {
 		Initialize ();
 	}
@@ -27,10 +29,13 @@ public class GameManager : MonoBehaviour {
 		LevelManager = LevelManager.Create ();
 		LevelManager.Initialize ();
 		LevelManager.transform.SetParent (transform, false);
-		LevelManager.CreateZombie ();
+//		LevelManager.CreateZombie ();
+
+		MenuManager.ShowMenu (MainMenu.Create ());
 	}
 
 	public void StartGame () {
-		
+		LevelManager.CreateZombie ();
+		GameStarted = true;
 	}
 }

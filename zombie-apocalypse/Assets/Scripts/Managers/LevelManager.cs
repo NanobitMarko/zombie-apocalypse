@@ -40,11 +40,11 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	//listen to start new button
 	void Update () {
+		
 		//chack if gaem is started
 		//if() {generateStartingLevel(); }
 		if (lastSegment.EndPosition.x -  ScreenUtility.GetScreenSize() <= xBound
-			|| lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {
-			
+			|| lastSegment.EndPosition.x - Zombie.transform.position.x <= xBoundZombie) {			
 			GenerateNextLevel ();
 		}
 	}
