@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
-	public bool GameStarted = false;
+	enum GameState {NOTSTARTED, STARTED, PAUSED, ENDED};
+	public GameState CurrentGameState;
+
 
 	private void Start () {
 		Initialize ();
@@ -32,23 +34,25 @@ public class GameManager : MonoBehaviour {
 //		LevelManager.CreateZombie ();
 
 		MenuManager.ShowMenu (MainMenu.Create ());
+		CurrentGameState = GameState.NOTSTARTED;
 	}
-
+		
 	public void StartGame () {
+		CurrentGameState = GameState.STARTED;
 		LevelManager.CreateZombie ();
-		GameStarted = true;
 	}
 
-	private bool isPaused() {
-		return LevelManager.IsLevelPaused ();
-	}
-
-	private void Pause () {
+	private void PauseGame () {
+		CurrentGameState = GameState.PAUSED;
 		LevelManager.PauseLevel ();
 	}
 
-	private void Resume () {
+	private void ResumeGame () {
+		CurrentGameState = GameState.STARTED;
 		LevelManager.ResumeLevel ();
 	}
 
+	public GameState getCurrentGameState () {
+		return CurrentGameState;
+	}
 }
