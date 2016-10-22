@@ -31,6 +31,9 @@ public class ParallaxController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (GameManager.Instance.CurrentGameState == GameManager.GameState.NOTSTARTED)
+			return;
+
 		Vector3 velocity = new Vector3 (GameManager.Instance.LevelManager.Zombie.rb.velocity.x * percentageOfZombieSpeed, 0);
 		rb.velocity = velocity;
 
