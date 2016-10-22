@@ -20,9 +20,26 @@ public class ZombieState {
 		}
 	}
 
+	private float score = 0;
+
+	public float Score {
+		get { return score; }
+		set
+		{
+			score = value;
+			if (ScoreChanged != null) {
+				ScoreChanged (score);
+			}
+		}
+	}
+
 	public delegate void EnergyChangedHandler (float currentValue);
 
 	public event EnergyChangedHandler EnergyChanged;
+
+	public delegate void ScoreChangedHandler (float currentValue);
+
+	public event ScoreChangedHandler ScoreChanged;
 
 	public void TickEnergy () {
 		Energy -= 1;

@@ -21,7 +21,7 @@ public class HumanoidController : ObjectController {
 
 	public event DeathHandler DeathTriggered;
 
-	private void Update () {
+	protected virtual void Update () {
 		rb.velocity = new Vector2 (dead ? 0 : movespeed, rb.velocity.y);
 		if (!dead && transform.position.y < -10) {
 //			Debug.Log ("killbox die");
