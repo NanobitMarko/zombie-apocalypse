@@ -7,11 +7,11 @@ public class LeaderboardMenu : BaseMenu {
 
 	public static LeaderboardMenu Create (int playerScore) {
 		var menu = Instantiate (Resources.Load<LeaderboardMenu> ("Prefabs/LeaderboardMenu"));
-		this.playerScore = playerScore;
+		menu.playerScore = playerScore;
 		return menu;
 	}
 
 	private void Start () {
-		GameManager.Instance.LeaderboardManager.IsGoodEnough (playerScore);
+		
 	}
 }
