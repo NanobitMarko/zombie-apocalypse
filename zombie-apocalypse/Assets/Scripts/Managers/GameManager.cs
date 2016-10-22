@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public LevelManager LevelManager;
 
-	enum GameState {NOTSTARTED, STARTED, PAUSED, ENDED};
+	public enum GameState {NOTSTARTED, STARTED, PAUSED, ENDED};
 	public GameState CurrentGameState;
 
 
@@ -44,15 +44,15 @@ public class GameManager : MonoBehaviour {
 
 	private void PauseGame () {
 		CurrentGameState = GameState.PAUSED;
-		LevelManager.PauseLevel ();
+		Time.timeScale = 0;
 	}
 
 	private void ResumeGame () {
 		CurrentGameState = GameState.STARTED;
-		LevelManager.ResumeLevel ();
+		Time.timeScale = 1;
 	}
 
-	public GameState getCurrentGameState () {
-		return CurrentGameState;
+	public GameState GetCurrentGameState () {
+		return this.CurrentGameState;
 	}
 }
