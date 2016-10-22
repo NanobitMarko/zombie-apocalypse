@@ -20,6 +20,8 @@ public class GameHud : BaseMenu {
 	}
 
 	public void OnPauseClicked () {
-		
+		if (GameManager.Instance.GetCurrentGameState () == GameManager.GameState.STARTED ) {
+			GameManager.Instance.PauseGame ();
+		}
 	}
 }

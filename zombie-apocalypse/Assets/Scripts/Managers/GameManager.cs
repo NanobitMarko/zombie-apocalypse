@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
 	public void PauseGame () {
 		CurrentGameState = GameState.PAUSED;
 		Time.timeScale = 0;
+		MenuManager.ShowMenu (PauseMenu.Create ());
 	}
 
 	public void ResumeGame () {
