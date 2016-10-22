@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour {
 
-	float halfTileWidth = 0.64f;
+	float halfTileWidth = 0.45f;
 
-	[SerializeField]
 	private List<LevelSegment> segments;
 
 	private Dictionary<int, List<LevelSegment>> segmentsForDifficulty;
@@ -18,6 +17,8 @@ public class LevelGenerator : MonoBehaviour {
 	public void Initialize() {
 		humans = Resources.LoadAll<HumanController> ("Prefabs/Humans");
 		obstacles = Resources.LoadAll<ObstacleController> ("Prefabs/Obstacles");
+
+		segments = new List<LevelSegment>(Resources.LoadAll<LevelSegment> ("Segments/GeneratedSegments"));
 
 		segmentsForDifficulty = new Dictionary<int, List<LevelSegment>> ();
 		foreach (var seg in segments) {
