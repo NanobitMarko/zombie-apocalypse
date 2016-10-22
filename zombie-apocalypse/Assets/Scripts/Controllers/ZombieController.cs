@@ -97,6 +97,7 @@ public class ZombieController : HumanoidController {
 	}
 
 	public void SpawnStarted () {
+		GameManager.Instance.MenuManager.ShowMenu (LightningFlash.Create ());
 		rb.velocity = new Vector2 (0, rb.velocity.y);
 		blockAllMovement = true;
 	}
