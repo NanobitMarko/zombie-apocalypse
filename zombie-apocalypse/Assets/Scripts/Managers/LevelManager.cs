@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour {
 	[SerializeField]
 	private LevelGenerator generator;
 
-	private int maxDifficulty = 5;
+	private int maxDifficulty = 4;
 	private List<int> possibleDifficulties = new List<int> (){ 1 };
 	private int numberOfGeneratedSegments;
 	private int xBound = 2;
@@ -58,19 +58,19 @@ public class LevelManager : MonoBehaviour {
 	public void Reset () {
 		numberOfGeneratedSegments = 0;
 		possibleDifficulties.Clear ();
+		possibleDifficulties = new List<int> (){ 1 };
 		GenerateStartingLevel ();
 	}
 
 	private void GenerateStartingLevel () {
 		// lana fake difficulty should be 0
-		lastSegment = generator.generateSegment (1);
+		lastSegment = generator.generateSegment (0);
 	}
 
 	private void GenerateNextLevel () {
 		System.Random rnd = new System.Random ();
 		int difficulty = rnd.Next (possibleDifficulties [0], possibleDifficulties [possibleDifficulties.Count - 1] + 1);
 		lastSegment = generator.generateSegment (difficulty);
-		Debug.Log ("difficulty " + difficulty);
 		SetState ();
 	}
 
@@ -85,12 +85,6 @@ public class LevelManager : MonoBehaviour {
 				possibleDifficulties.Add (Math.Min(largestDifficulty + 1 , maxDifficulty));
 			}
 			Zombie.movespeed += Zombie.movespeed * 0.2f;
-		}
-		Debug.Log ( "generated segments " + numberOfGeneratedSegments);
-
-		foreach( int poible in possibleDifficulties )
-		{
-			Debug.Log( "possibleDifficulties " + poible );
 		}
 	}
 }

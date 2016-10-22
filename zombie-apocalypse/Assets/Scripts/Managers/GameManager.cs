@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
 
 	public void EndGame () {
 		CurrentGameState = GameState.ENDED;
+		LevelManager.Reset ();
 		MenuManager.ShowMenu (GameOverMenu.Create ());
 	}
 
