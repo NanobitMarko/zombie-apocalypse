@@ -9,7 +9,6 @@ public class SoundManager : MonoBehaviour {
 	[SerializeField]
 	AudioSource SFX_Player;
 
-
 	public const string BGMusic = "Sound/bg_music";
 
 	public const string Thunder = "Sound/grmljavina_bolja";
@@ -31,5 +30,13 @@ public class SoundManager : MonoBehaviour {
 	public void PlaySoundEffect (string effect) {
 		SFX_Player.clip = Resources.Load<AudioClip> (effect);
 		SFX_Player.Play ();
+	}
+
+	public void SetSoundEffectsActive (bool active) {
+		SFX_Player.mute = !active;
+	}
+
+	public void SetBackgroundMusicActive (bool active) {
+		BGM_Player.mute = !active;
 	}
 }

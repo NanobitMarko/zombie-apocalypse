@@ -26,12 +26,12 @@ public class ParallaxController : MonoBehaviour {
 			}
 		}
 
-		backgroundParts = backgroundParts.OrderBy (t => transform.position.x).ToList ();
+		backgroundParts = backgroundParts.OrderBy (t => t.transform.position.x).ToList ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (! (GameManager.Instance.CurrentGameState == GameManager.GameState.STARTED))
+		if (GameManager.Instance.LevelManager.Zombie == null)
 			return;
 		
 		Vector3 velocity = new Vector3 (GameManager.Instance.LevelManager.Zombie.rb.velocity.x * percentageOfZombieSpeed, 0);
