@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour {
 
-	float halfTileWidth = 0.64f;
+	float halfTileWidth = 0.45f;
 
 	[SerializeField]
 	private List<LevelSegment> segments;
