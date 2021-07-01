@@ -22,7 +22,7 @@ public class HumanController : HumanoidController {
 		dust.transform.position = transform.position;
 		Destroy (this.gameObject);
 		Destroy (dust.gameObject, dust.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length); 
-		Destroy (particle.gameObject, particle.GetComponent<ParticleSystem>().duration); 
+		Destroy (particle.gameObject, particle.GetComponent<ParticleSystem>().main.duration); 
 	}
 
 	private void killMe () {
