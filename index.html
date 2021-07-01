@@ -7,12 +7,12 @@
   </head>
   <body style="text-align: center">
     <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
-    <script src="Data/The Running Dead.loader.js"></script>
+    <script src="Build/The Running Dead.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Data/The Running Dead.data.br",
-        frameworkUrl: "Data/The Running Dead.framework.js.br",
-        codeUrl: "Data/The Running Dead.wasm.br",
+        dataUrl: "Build/The Running Dead.data.br",
+        frameworkUrl: "Build/The Running Dead.framework.js.br",
+        codeUrl: "Build/The Running Dead.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "zombie-apocalypse",
