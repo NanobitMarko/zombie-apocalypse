@@ -10,8 +10,7 @@ public class LevelGenerator : MonoBehaviour {
 	private Dictionary<int, List<LevelSegment>> segmentsForDifficulty;
 	private HumanController[] humans;
 	private ObstacleController[] obstacles;
-
-
+	
 	private LevelSegment currentSegment;
 
 	public void Initialize() {
@@ -33,7 +32,7 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-	public LevelSegment generateSegment(int difficulty) {
+	public LevelSegment GenerateSegment(int difficulty) {
 
 		Vector3 mPos = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, 10));
 
@@ -54,12 +53,12 @@ public class LevelGenerator : MonoBehaviour {
 
 		currentSegment = instantiated;
 
-		spawnHumans (currentSegment);
-		spawnObstacles (currentSegment);
+		SpawnHumans (currentSegment);
+		SpawnObstacles (currentSegment);
 		return currentSegment;
 	}
 
-	void spawnHumans(LevelSegment segment) {
+	void SpawnHumans(LevelSegment segment) {
 		if (humans == null || humans.Length == 0)
 			return;
 		
@@ -73,7 +72,7 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-	void spawnObstacles(LevelSegment segment) {
+	void SpawnObstacles(LevelSegment segment) {
 		if (obstacles == null || obstacles.Length == 0)
 			return;
 		

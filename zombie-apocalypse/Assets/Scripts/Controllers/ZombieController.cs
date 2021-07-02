@@ -13,10 +13,11 @@ public class ZombieController : HumanoidController {
 	private bool blockAllMovement = false;
 
 	public ZombieState State;
+	private static readonly int GROUNDED = Animator.StringToHash("Grounded");
 
 	public void Awake () {
 		State = new ZombieState ();
-		Invoke ("TickEnergy", State.EnergyDrainPeriod);
+		Invoke (nameof(TickEnergy), State.EnergyDrainPeriod);
 	}
 
 	private void Start () {
@@ -40,7 +41,7 @@ public class ZombieController : HumanoidController {
 	public void Jump (PointerEventData eventData) {
 		if (grounded && !dead && !blockAllMovement) {
 			rb.AddForce (Vector2.up * JumpingPower, ForceMode2D.Impulse);
-			animator.SetBool ("Grounded", false);
+			animator.SetBool (GROUNDED, false);
 			grounded = false;
 		}
 	}
@@ -49,12 +50,12 @@ public class ZombieController : HumanoidController {
 		if (dead)
 			return;
 
-		if (collision.collider.transform.position.y < transform.position.y && Mathf.Abs (collision.collider.transform.position.x - transform.position.x) < 1.5f /* khm khm*/ && collision.gameObject.tag == "Level Tile") {
-			animator.SetBool ("Grounded", true);
+		if (collision.collider.transform.position.y < transform.position.y && Mathf.Abs (collision.collider.transform.position.x - transform.position.x) < 1.5f /* khm khm*/ && collision.gameObject.CompareTag("Level Tile")) {
+			animator.SetBool (GROUNDED, true);
 			grounded = true;
 			finishedJumpAnimation = false;
 		}
-		if (collision.collider.gameObject.tag == "Human") {
+		if (collision.collider.gameObject.CompareTag("Human")) {
 			HumanController human = collision.collider.GetComponent<HumanController> ();
 			if (human != null) {
 				human.SpecialEffect (this);
@@ -63,14 +64,14 @@ public class ZombieController : HumanoidController {
 			}
 			return;
 		}
-		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Obstacle")) {
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
 			Die ();
 			Destroy (collision.collider.gameObject);
 			return;
 		}
 		foreach (var contact in collision.contacts) {
-			BoxCollider2D collider = GetComponent<BoxCollider2D> ();
-			if (collider.bounds.Contains (contact.point)) {
+			BoxCollider2D boxCollider = GetComponent<BoxCollider2D> ();
+			if (boxCollider.bounds.Contains (contact.point)) {
 				//				Debug.Log ("collided die"); else {
 				base.Die ();
 				break;
@@ -87,7 +88,7 @@ public class ZombieController : HumanoidController {
 
 	protected override void Die () {
 		if (!dead) {
-			CancelInvoke ("TickEnergy");
+			CancelInvoke (nameof(TickEnergy));
 			GameManager.Instance.SoundManager.PlaySoundEffect (SoundManager.ZombieDeath);
 		}
 
@@ -96,7 +97,7 @@ public class ZombieController : HumanoidController {
 
 	private void TickEnergy () {
 		State.TickEnergy ();
-		Invoke ("TickEnergy", State.EnergyDrainPeriod);
+		Invoke (nameof(TickEnergy), State.EnergyDrainPeriod);
 	}
 
 	public void SpawnStarted () {

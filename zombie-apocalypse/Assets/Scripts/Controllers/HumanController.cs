@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class HumanController : HumanoidController {
 
 	public int ScoreGiven = 10;
 
 	private void OnCollisionEnter2D (Collision2D collision) {
-		if (collision.gameObject.tag != "Level Tile") {
+		if (!collision.gameObject.CompareTag("Level Tile")) {
 			Physics2D.IgnoreCollision (collision.collider, GetComponent<Collider2D> ());
 		}
 	}
+	
 	//unused, maybe will be used if the box collider turns into a trigger collider
 	public void SpecialEffect (ZombieController zombie) {
 		//		Debug.Log ("Triggered die");
@@ -25,7 +25,7 @@ public class HumanController : HumanoidController {
 		Destroy (particle.gameObject, particle.GetComponent<ParticleSystem>().main.duration); 
 	}
 
-	private void killMe () {
+	private void KillMe () {
 		//		Debug.Log ("Triggered die");
 		Destroy (this.gameObject);
 	}
