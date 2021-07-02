@@ -66,13 +66,13 @@ public class LevelManager : MonoBehaviour {
 
 	private void GenerateStartingLevel () {
 		// lana fake difficulty should be 0
-		lastSegment = generator.generateSegment (0);
+		lastSegment = generator.GenerateSegment (0);
 	}
 
 	private void GenerateNextLevel () {
 		System.Random rnd = new System.Random ();
 		int difficulty = rnd.Next (possibleDifficulties [0], possibleDifficulties [possibleDifficulties.Count - 1] + 1);
-		lastSegment = generator.generateSegment (difficulty);
+		lastSegment = generator.GenerateSegment (difficulty);
 		SetState ();
 	}
 
